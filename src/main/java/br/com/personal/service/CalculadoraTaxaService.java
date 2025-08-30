@@ -1,7 +1,7 @@
 package br.com.personal.service;
 
 import br.com.personal.exception.RegraNegocioException;
-import br.com.personal.service.strategy.TaxaStrategy;
+import br.com.personal.service.strategy.base.TaxaStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Set;
 @Service
 public class CalculadoraTaxaService {
 
-    private final Set<TaxaStrategy> taxaStrategies;
+    protected Set<TaxaStrategy> taxaStrategies;
 
     @Autowired
     public CalculadoraTaxaService(Set<TaxaStrategy> taxaStrategies) {
