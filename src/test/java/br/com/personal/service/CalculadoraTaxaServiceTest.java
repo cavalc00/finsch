@@ -84,12 +84,7 @@ class CalculadoraTaxaServiceTest {
         LocalDate agendamento = hoje.plusDays(35);
         BigDecimal valor = BigDecimal.valueOf(200);
 
-        when(taxaMesmoDiaStrategy.aplicavel(agendamento, hoje)).thenReturn(false);
-        when(taxaDezDiasStrategy.aplicavel(agendamento, hoje)).thenReturn(false);
-        when(taxaVinteDiasStrategy.aplicavel(agendamento, hoje)).thenReturn(false);
-        when(taxaTrintaDiasStrategy.aplicavel(agendamento, hoje)).thenReturn(false);
         when(taxaQuarentaDiasStrategy.aplicavel(agendamento, hoje)).thenReturn(true);
-
         when(taxaQuarentaDiasStrategy.getTaxa()).thenReturn(BigDecimal.valueOf(4.7));
         when(taxaQuarentaDiasStrategy.calcular(valor)).thenCallRealMethod();
 
