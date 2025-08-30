@@ -5,15 +5,17 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Component
-public class TaxaMesmoDiaStrategy implements TaxaStrategy {
+public class TaxaVinteDiasStrategy implements TaxaStrategy {
 
-    private final BigDecimal TAXA = BigDecimal.valueOf(2.5);
+    private final BigDecimal TAXA = BigDecimal.valueOf(8.2);
 
     @Override
     public boolean aplicavel(LocalDate dataTransferencia, LocalDate dataAgendamento) {
-        return dataAgendamento.isEqual(dataTransferencia);
+        long totalDias = dataAgendamento.until(dataTransferencia, ChronoUnit.DAYS);
+        return totalDias >= 11 && totalDias <= 20;
     }
 
     @Override
