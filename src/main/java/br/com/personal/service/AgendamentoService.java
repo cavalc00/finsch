@@ -1,6 +1,7 @@
 package br.com.personal.service;
 
 import br.com.personal.exception.RegraNegocioException;
+import br.com.personal.mapper.AgendamentoTransferenciaMapper;
 import br.com.personal.model.dto.AgendamentoTransferenciaRequestDTO;
 import br.com.personal.model.dto.AgendamentoTransferenciaResponseDTO;
 import br.com.personal.model.entity.AgendamentoTransferencia;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class AgendamentoService {
@@ -25,20 +27,16 @@ public class AgendamentoService {
         this.calculadoraTaxaService = calculadoraTaxaService;
     }
 
+    public List<AgendamentoTransferenciaResponseDTO> listarAgendamentos() {
+        List<AgendamentoTransferencia> agendamentoTransferencias = agendamentoRepository.findAll();
+
+        return AgendamentoTransferenciaMapper.toResponseDTOList(agendamentoTransferencias);
+    }
+
     public AgendamentoTransferenciaResponseDTO salvarAgendamento(AgendamentoTransferenciaRequestDTO request) {
         AgendamentoTransferencia agendamentoTransferencia = agendamentoRepository.save(this.getAgendamentoTransferencia(request));
 
-        return AgendamentoTransferenciaResponseDTO.builder()
-                .id(agendamentoTransferencia.getId())
-                .valor(agendamentoTransferencia.getValor())
-                .taxa(agendamentoTransferencia.getTaxa())
-                .valorTotal(agendamentoTransferencia.getValorTotal())
-                .contaDestino(agendamentoTransferencia.getContaDestino())
-                .contaOrigem(agendamentoTransferencia.getContaOrigem())
-                .dataTransferencia(agendamentoTransferencia.getDataTransferencia())
-                .dataAgendamento(agendamentoTransferencia.getDataAgendamento())
-                .status(agendamentoTransferencia.getStatus())
-                .build();
+        return AgendamentoTransferenciaMapper.toResponseDTO(agendamentoTransferencia);
     }
 
     private AgendamentoTransferencia getAgendamentoTransferencia(AgendamentoTransferenciaRequestDTO request) {
