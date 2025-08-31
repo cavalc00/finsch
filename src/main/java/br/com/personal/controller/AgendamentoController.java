@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/agendamento")
+@RequestMapping(value = "/agendamentos")
 public class AgendamentoController {
 
     private final AgendamentoService agendamentoService;
